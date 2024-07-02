@@ -22,7 +22,7 @@
 
 What is Kickstart?
 
-  Kickstart.nvim is *not* a distribution.
+  Kickstart.nvim is *not* a distributio ..
 
   Kickstart.nvim is a starting point for your own configuration.
     The goal is that you can read every line of code, top-to-bottom, understand
@@ -91,7 +91,7 @@ vim.g.mapleader = ' '
 vim.g.maplocalleader = ' '
 
 -- Set to true if you have a Nerd Font installed and selected in the terminal
-vim.g.have_nerd_font = false
+vim.g.have_nerd_font = true
 
 -- [[ Setting options ]]
 -- See `:help vim.opt`
@@ -281,11 +281,13 @@ require('lazy').setup({
 
       -- Document existing key chains
       require('which-key').register {
+        ['<leader>b'] = { name = '[B]uffers', _ = 'which_key_ignore' },
         ['<leader>c'] = { name = '[C]ode', _ = 'which_key_ignore' },
         ['<leader>d'] = { name = '[D]ocument', _ = 'which_key_ignore' },
         ['<leader>r'] = { name = '[R]ename', _ = 'which_key_ignore' },
         ['<leader>s'] = { name = '[S]earch', _ = 'which_key_ignore' },
-        ['<leader>w'] = { name = '[W]orkspace', _ = 'which_key_ignore' },
+        ['<leader>w'] = { name = '[W]indow', _ = 'which_key_ignore' },
+        ['<leader>f'] = { name = '[F]ile', _ = 'which_key_ignore' },
         ['<leader>t'] = { name = '[T]oggle', _ = 'which_key_ignore' },
         ['<leader>h'] = { name = 'Git [H]unk', _ = 'which_key_ignore' },
       }
@@ -326,6 +328,12 @@ require('lazy').setup({
 
       -- Useful for getting pretty icons, but requires a Nerd Font.
       { 'nvim-tree/nvim-web-devicons',            enabled = vim.g.have_nerd_font },
+      {
+        'jmbuhr/telescope-zotero.nvim',
+        dependencies = {
+          { 'kkharji/sqlite.lua' },
+        }
+      }
     },
     config = function()
       -- Telescope is a fuzzy finder that comes with a lot of different things that
@@ -369,13 +377,15 @@ require('lazy').setup({
       -- Enable Telescope extensions if they are installed
       pcall(require('telescope').load_extension, 'fzf')
       pcall(require('telescope').load_extension, 'ui-select')
+      pcall(require('telescope').load_extension, 'zotero')
 
       -- See `:help telescope.builtin`
       local builtin = require 'telescope.builtin'
       vim.keymap.set('n', '<leader>sh', builtin.help_tags, { desc = '[S]earch [H]elp' })
       vim.keymap.set('n', '<leader>sk', builtin.keymaps, { desc = '[S]earch [K]eymaps' })
       vim.keymap.set('n', '<leader>sf', builtin.find_files, { desc = '[S]earch [F]iles' })
-      vim.keymap.set('n', '<leader>ss', builtin.builtin, { desc = '[S]earch [S]elect Telescope' })
+      --Removed due to conflicts with obsidian
+      --vim.keymap.set('n', '<leader>ss', builtin.builtin, { desc = '[S]earch [S]elect Telescope' })
       vim.keymap.set('n', '<leader>sw', builtin.grep_string, { desc = '[S]earch current [W]ord' })
       vim.keymap.set('n', '<leader>sg', builtin.live_grep, { desc = '[S]earch by [G]rep' })
       vim.keymap.set('n', '<leader>sd', builtin.diagnostics, { desc = '[S]earch [D]iagnostics' })
@@ -489,7 +499,8 @@ require('lazy').setup({
 
           -- Fuzzy find all the symbols in your current workspace.
           --  Similar to document symbols, except searches over your entire project.
-          map('<leader>ws', require('telescope.builtin').lsp_dynamic_workspace_symbols, '[W]orkspace [S]ymbols')
+          --  NOTE: Removed to fix conflicts with what [W]indow [S]plit
+          --- map('<leader>ws', require('telescope.builtin').lsp_dynamic_workspace_symbols, '[W]orkspace [S]ymbols')
 
           -- Rename the variable under your cursor.
           --  Most Language Servers support renaming across files, etc.
@@ -633,12 +644,12 @@ require('lazy').setup({
     lazy = false,
     keys = {
       {
-        '<leader>f',
+        '<leader>ff',
         function()
           require('conform').format { async = true, lsp_fallback = true }
         end,
         mode = '',
-        desc = '[F]ormat buffer',
+        desc = '[F]ormat bu[f]fer',
       },
     },
     opts = {
@@ -667,7 +678,7 @@ require('lazy').setup({
 
   { -- Autocompletion
     'hrsh7th/nvim-cmp',
-    event = 'InsertEnter',
+    --event = 'InsertEnter',
     dependencies = {
       -- Snippet Engine & its associated nvim-cmp source
       {
@@ -681,16 +692,6 @@ require('lazy').setup({
           end
           return 'make install_jsregexp'
         end)(),
-        config = function()
-          local ls = require("luasnip")
-
-          ls.setup({
-            enable_autosnippets = true,
-
-            store_selection_keys = "<Tab>",
-          })
-          require("luasnip.loaders.from_lua").load({ paths = "~/.config/nvim/lua/custom/luasnippets/" })
-        end,
         dependencies = {
           -- `friendly-snippets` contains a variety of premade snippets.
           --    See the README about individual language/framework/plugin snippets:
@@ -702,6 +703,11 @@ require('lazy').setup({
           --   end,
           -- },
         },
+        opts = {
+          --enable_autosnippets = true,
+
+          --store_selection_keys = "<Tab>",
+        }
       },
       'saadparwaiz1/cmp_luasnip',
 
@@ -710,6 +716,8 @@ require('lazy').setup({
       --  into multiple repos for maintenance purposes.
       'hrsh7th/cmp-nvim-lsp',
       'hrsh7th/cmp-path',
+      --'jalvesaq/cmp-zotcite'
+      'jc-doyle/cmp-pandoc-references'
     },
     config = function()
       -- See `:help cmp`
@@ -781,6 +789,7 @@ require('lazy').setup({
           { name = 'nvim_lsp' },
           { name = 'luasnip' },
           { name = 'path' },
+          { name = 'pandoc_references' },
         },
       }
     end,
@@ -797,7 +806,7 @@ require('lazy').setup({
       -- Load the colorscheme here.
       -- Like many other themes, this one has different styles, and you could load
       -- any other, such as 'tokyonight-storm', 'tokyonight-moon', or 'tokyonight-day'.
-      vim.cmd.colorscheme 'tokyonight-night'
+      --      vim.cmd.colorscheme 'tokyonight-night'
 
       -- You can configure highlights by doing something like:
       vim.cmd.hi 'Comment gui=none'
@@ -848,15 +857,16 @@ require('lazy').setup({
     'nvim-treesitter/nvim-treesitter',
     build = ':TSUpdate',
     opts = {
-      ensure_installed = { 'bash', 'c', 'diff', 'html', 'lua', 'luadoc', 'markdown', 'vim', 'vimdoc' },
+      ensure_installed = { 'bash', 'c', 'diff', 'html', 'lua', 'luadoc', 'vim', 'vimdoc' },
       -- Autoinstall languages that are not installed
       auto_install = true,
-      ignore_install = { 'latex' },
+      ignore_install = { 'markdown' },
       highlight = {
         enable = true,
         -- Some languages depend on vim's regex highlighting system (such as Ruby) for indent rules.
         --  If you are experiencing weird indenting issues, add the language to
         --  the list of additional_vim_regex_highlighting and disabled languages for indent.
+        disable = { "markdown", "latex" },
         additional_vim_regex_highlighting = { 'ruby' },
       },
       indent = { enable = true, disable = { 'ruby' } },
@@ -890,7 +900,7 @@ require('lazy').setup({
   -- require 'kickstart.plugins.debug',
   -- require 'kickstart.plugins.indent_line',
   -- require 'kickstart.plugins.lint',
-  -- require 'kickstart.plugins.autopairs',
+  require 'kickstart.plugins.autopairs',
   require 'kickstart.plugins.neo-tree',
   require 'kickstart.plugins.gitsigns', -- adds gitsigns recommend keymaps
 
@@ -929,7 +939,10 @@ require('lazy').setup({
 vim.cmd 'set langmap=nN;jJ,eE;kK,iI;lL,kK;nN,uU;iI,lL;uU,fF;eE,tT;fF,jJ;tT,mM;hH'
 
 --This (hopefully) disables treesitter in latex
-vim.api.nvim_create_autocmd({ 'FIleType' }, { pattern = 'tex', command = 'TSBufDisable highlight' })
+--vim.api.nvim_create_autocmd({ 'FIleType' }, { pattern = 'tex', command = 'TSBufDisable highlight' })
+
+--This (hopefully) disables treesitter in markdown
+--vim.api.nvim_create_autocmd({ 'FIleType' }, { pattern = 'md', command = 'TSBufDisable highlight' })
 
 -- this ands python
 vim.g.python3_host_prog = '/Users/lucaskerbs/.venv/bin/python'
@@ -942,12 +955,21 @@ require('luasnip-helper-functions')
 -- Second we went how we navigate snippets
 vim.cmd [[
 " Expand or jump in insert mode
-imap <silent><expr> <Tab> luasnip#expand_or_jumpable() ? '<Plug>luasnip-expand-or-jump' : '<Tab>.
+imap <silent><expr> <Tab> luasnip#expand_or_jumpable() ? '<Plug>luasnip-expand-or-jump' : '<Tab>'
 " Jump forward through tabstops in visual mode
 smap <silent><expr> <Tab> luasnip#jumpable(1) ? '<Plug>luasnip-jump-next' : '<Tab>'
 ]]
 
--- This allows us to use <leader>L to reload the snippets at any time
-vim.keymap.set('n', '<Leader>L',
-  '<Cmd>lua require("luasnip.loaders.from_lua").load({paths = "~/.config/nvim/lua/custom/luasnippets/"})<CR>',
-  { desc = "Reload [L]uasnip" })
+
+
+local ls = require("luasnip")
+
+ls.setup({
+  enable_autosnippets = true,
+
+  store_selection_keys = "<Tab>",
+})
+require("luasnip.loaders.from_lua").load({ paths = "~/.config/nvim/lua/custom/luasnippets/" })
+
+require("keybindings")
+require("options")

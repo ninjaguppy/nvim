@@ -1,0 +1,1 @@
+/Users/lucaskerbs/.config/nvim/lua/custom/luasnippets/tex/greekletters.lua

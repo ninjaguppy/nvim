@@ -29,12 +29,14 @@ tex_utils.in_tikz = function() -- TikZ picture environment detection
 end
 
 return {
+  ----------- INSERT `\text__{ * } THINGS -------------
+  --- Normal Text
   s({
       trig = "([^%a])tt",
       desc = "Expands 'tt' into '\text}'",
       wordTrig = false,
       regTrig = true,
-      --snippetType = "autosnippet",
+      snippetType = "autosnippet",
     },
     fmta(
       "<>\\text{<>}",
@@ -44,7 +46,151 @@ return {
       }
     ),
     {
-      conditions = tex_utils.in_mathzone()
+      condition = tex_utils.in_mathzone
     }
   ),
+
+  -- ITALIC i.e. \textit
+  s({
+      trig = "([^%a])tii",
+      regTrig = true,
+      wordTrig = false,
+      snippetType = "autosnippet"
+    },
+    fmta(
+      "<>\\textit{<>}",
+      {
+        f(function(_, snip) return snip.captures[1] end),
+        d(1, get_visual),
+      }
+    )
+  ),
+
+  -- BOLD i.e. \textbf
+  s({
+      trig = "tbb",
+      snippetType = "autosnippet"
+    },
+    fmta(
+      "\\textbf{<>}",
+      {
+        d(1, get_visual),
+      }
+    )
+  ),
+
+  -------------- \math__{ * } AND SIMILAR
+
+  -- Math Roman i.e. \mathrm
+  s({
+      trig = "([%a])rmm",
+      regTrig = true,
+      wordTrig = false,
+      snippetType = "autosnippet"
+    },
+    fmta(
+      "\\mathrm{<>}",
+      {
+        f(function(_, snip) return snip.captures[1] end),
+      }
+    )
+  ),
+
+  -- Math Caligraphy i.e. \mathcal
+  s({
+      trig = "([%a])mcc",
+      regTrig = true,
+      wordTrig = false,
+      snippetType = "autosnippet"
+    },
+    fmta(
+      "\\mathcal{<>}",
+      {
+        f(function(_, snip) return snip.captures[1] end),
+      }
+    )
+  ),
+
+  -- Math Blackboard i.e. \mathbb
+  s({
+      trig = "([%a])mbb",
+      regTrig = true,
+      wordTrig = false,
+      snippetType = "autosnippet"
+    },
+    fmta(
+      "\\mathbb{<>}",
+      {
+        f(function(_, snip) return snip.captures[1] end),
+      }
+    )
+  ),
+
+  -- Math Script i.e. \mathscr
+  s({
+      trig = "([%a])mscr",
+      regTrig = true,
+      wordTrig = false,
+      snippetType = "autosnippet"
+    },
+    fmta(
+      "\\mathscr{<>}",
+      {
+        f(function(_, snip) return snip.captures[1] end),
+      }
+    )
+  ),
+
+  --------- \RR, \CC, \HH, AND THE LIKE ----------
+
+  s({
+      trig = "RR",
+      snippetType = "autosnippet",
+    },
+    {
+      t("\\RR"),
+    },
+    { condition = tex_utils.in_mathzone }
+  ),
+
+  s({
+      trig = "CC",
+      snippetType = "autosnippet",
+    },
+    {
+      t("\\CC"),
+    },
+    { condition = tex_utils.in_mathzone }
+  ),
+
+  s({
+      trig = "HH",
+      snippetType = "autosnippet",
+    },
+    {
+      t("\\HH"),
+    },
+    { condition = tex_utils.in_mathzone }
+  ),
+
+  s({
+      trig = "EE",
+      snippetType = "autosnippet",
+    },
+    {
+      t("\\EE"),
+    },
+    { condition = tex_utils.in_mathzone }
+  ),
+
+  s({
+      trig = "DD",
+      snippetType = "autosnippet",
+    },
+    {
+      t("\\DD"),
+    },
+    { condition = tex_utils.in_mathzone }
+  ),
+
 }
