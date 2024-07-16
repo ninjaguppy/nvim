@@ -1,6 +1,9 @@
 ------Delete the old maps----------
 --<leader> ws no longer invokes lsp nonsense
-
+-- vim.api.nvim_create_autocmd("VimEnter", {
+--   callback = function()
+--   end,
+-- })
 -- Navigating files
 vim.keymap.set("n", "<leader>fs", [[<cmd>w<cr>]], { desc = "[F]ile [S]ave" })
 

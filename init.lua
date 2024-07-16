@@ -14,7 +14,7 @@
 ========         |'-..................-'|   |____o|          ========
 ========         `"")----------------(""`   ___________      ========
 ========        /::::::::::|  |::::::::::\  \ no mouse \     ========
-========       /:::========|  |==hjkl==:::\  \ required \    ========
+========       /:::========|  |==mnei==:::\  \ required \    ========
 ========      '""""""""""""'  '""""""""""""'  '""""""""""'   ========
 ========                                                     ========
 =====================================================================
@@ -84,6 +84,7 @@ I hope you enjoy your Neovim journey,
 P.S. You can delete this when you're done too. It's your config now! :)
 --]]
 
+
 -- Set <space> as the leader key
 -- See `:help mapleader`
 --  NOTE: Must happen before plugins are loaded (otherwise wrong leader will be used)
@@ -133,7 +134,7 @@ vim.opt.updatetime = 250
 
 -- Decrease mapped sequence wait time
 -- Displays which-key popup sooner
-vim.opt.timeoutlen = 300
+vim.opt.timeoutlen = 0
 
 -- Configure how new splits should be opened
 vim.opt.splitright = true
@@ -154,6 +155,7 @@ vim.opt.cursorline = true
 -- Minimal number of screen lines to keep above and below the cursor.
 vim.opt.scrolloff = 12
 
+
 -- [[ Basic Keymaps ]]
 --  See `:help vim.keymap.set()`
 
@@ -170,7 +172,7 @@ vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagn
 -- Exit terminal mode in the builtin terminal with a shortcut that is a bit easier
 -- for people to discover. Otherwise, you normally need to press <C-\><C-n>, which
 -- is not what someone will guess without a bit more experience.
---
+
 -- NOTE: This won't work in all terminal emulators/tmux/etc. Try your own mapping
 -- or just use <C-\><C-n> to exit terminal mode
 vim.keymap.set('t', '<Esc><Esc>', '<C-\\><C-n>', { desc = 'Exit terminal mode' })
@@ -272,31 +274,6 @@ require('lazy').setup({
   -- Then, because we use the `config` key, the configuration only runs
   -- after the plugin has been loaded:
   --  config = function() ... end
-
-  {                     -- Useful plugin to show you pending keybinds.
-    'folke/which-key.nvim',
-    event = 'VimEnter', -- Sets the loading event to 'VimEnter'
-    config = function() -- This is the function that runs, AFTER loading
-      require('which-key').setup()
-
-      -- Document existing key chains
-      require('which-key').register {
-        ['<leader>b'] = { name = '[B]uffers', _ = 'which_key_ignore' },
-        ['<leader>c'] = { name = '[C]ode', _ = 'which_key_ignore' },
-        ['<leader>d'] = { name = '[D]ocument', _ = 'which_key_ignore' },
-        ['<leader>r'] = { name = '[R]ename', _ = 'which_key_ignore' },
-        ['<leader>s'] = { name = '[S]earch', _ = 'which_key_ignore' },
-        ['<leader>w'] = { name = '[W]indow', _ = 'which_key_ignore' },
-        ['<leader>f'] = { name = '[F]ile', _ = 'which_key_ignore' },
-        ['<leader>t'] = { name = '[T]oggle', _ = 'which_key_ignore' },
-        ['<leader>h'] = { name = 'Git [H]unk', _ = 'which_key_ignore' },
-      }
-      -- visual mode
-      require('which-key').register({
-        ['<leader>h'] = { 'Git [H]unk' },
-      }, { mode = 'v' })
-    end,
-  },
 
   -- NOTE: Plugins can specify dependencies.
   --
@@ -837,17 +814,17 @@ require('lazy').setup({
       -- Simple and easy statusline.
       --  You could remove this setup call if you don't like it,
       --  and try some other statusline plugin
-      local statusline = require 'mini.statusline'
+      --local statusline = require 'mini.statusline'
       -- set use_icons to true if you have a Nerd Font
-      statusline.setup { use_icons = vim.g.have_nerd_font }
+      --statusline.setup { use_icons = vim.g.have_nerd_font }
 
       -- You can configure sections in the statusline by overriding their
       -- default behavior. For example, here we set the section for
       -- cursor location to LINE:COLUMN
       ---@diagnostic disable-next-line: duplicate-set-field
-      statusline.section_location = function()
-        return '%2l:%-2v'
-      end
+      --statusline.section_location = function()
+      --return '%2l:%-2v'
+      --end
 
       -- ... and there is more!
       --  Check out: https://github.com/echasnovski/mini.nvim
@@ -935,8 +912,8 @@ require('lazy').setup({
 -- The line beneath this is called `modeline`. See `:help modeline`
 -- vim: ts=2 sts=2 sw=2 et
 
---This moves around the keyboard to be colemak
-vim.cmd 'set langmap=nN;jJ,eE;kK,iI;lL,kK;nN,uU;iI,lL;uU,fF;eE,tT;fF,jJ;tT,mM;hH'
+--This moves around the keyboard to be colemak; to keep keymap things right we
+--want to do this at the right time?
 
 --This (hopefully) disables treesitter in latex
 --vim.api.nvim_create_autocmd({ 'FIleType' }, { pattern = 'tex', command = 'TSBufDisable highlight' })
@@ -960,6 +937,9 @@ imap <silent><expr> <Tab> luasnip#expand_or_jumpable() ? '<Plug>luasnip-expand-o
 smap <silent><expr> <Tab> luasnip#jumpable(1) ? '<Plug>luasnip-jump-next' : '<Tab>'
 ]]
 
+require("keybindings")
+require("options")
+require("colemak")
 
 
 local ls = require("luasnip")
@@ -971,5 +951,4 @@ ls.setup({
 })
 require("luasnip.loaders.from_lua").load({ paths = "~/.config/nvim/lua/custom/luasnippets/" })
 
-require("keybindings")
-require("options")
+--maybe we want to load the new keymap as the very first thing?

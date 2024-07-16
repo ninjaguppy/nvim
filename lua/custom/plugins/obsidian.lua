@@ -21,6 +21,10 @@ return {
       {
         name = "stacks",
         path = "~/stacks",
+      },
+      {
+        name = "the-forest",
+        path = "~/the-forest"
       }
     },
 
