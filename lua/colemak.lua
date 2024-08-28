@@ -23,8 +23,8 @@ vim.cmd [[
 " inSert/Replace/append (T) {{{
     nnoremap u i|
     nnoremap U I|
-    nnoremap t a|
-    nnoremap T A|
+    "nnoremap t a|
+    "nnoremap T A|
 " }}}
 " Undo/redo {{{
     nnoremap l u|xnoremap l :<C-U>undo<CR>|

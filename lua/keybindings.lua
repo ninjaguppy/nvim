@@ -23,7 +23,8 @@ vim.keymap.set("n", "<leader>wq", [[<C-w>c]], { desc = "[Q]uit Window" })
 vim.keymap.set("n", "<leader>wk", [[<cmd>bdelete<cr>]], { desc = "[K]ill buffer and window" })
 
 -- Search Obsidian
-vim.keymap.set("n", "<leader>ss", [[<cmd>ObsidianSearch<cr>]], { desc = "[S]earch [S]tacks" })
+vim.keymap.set("n", "<leader>ns", [[<cmd>ObsidianSearch<cr>]], { desc = "Search [S]tacks" })
+vim.keymap.set("n", "<leader>nn", [[<cmd>ObsidianQuickSwitch<cr>]], { desc = "Search [N]otes" })
 
 -- This allows us to use <leader>L to reload the snippets at any time
 vim.keymap.set('n', '<Leader>L',

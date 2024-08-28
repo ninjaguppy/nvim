@@ -17,6 +17,8 @@ return {
         { "<leader>f_", hidden = true },
         { "<leader>h",  group = "Git [H]unk" },
         { "<leader>h_", hidden = true },
+        { "<leader>n",  group = "[N]otes" },
+        { "<leader>n_", hidden = true },
         { "<leader>r",  group = "[R]ename" },
         { "<leader>r_", hidden = true },
         { "<leader>s",  group = "[S]earch" },
