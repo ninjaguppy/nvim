@@ -111,6 +111,20 @@ return {
     )
   ),
 
+  -- Math Fraktor i.e. \mathfrak
+  s({
+      trig = "([%a])mfr",
+      regTrig = true,
+      wordTrig = false,
+      snippetType = "autosnippet"
+    },
+    fmta(
+      "\\mathfrak{<>}",
+      {
+        f(function(_, snip) return snip.captures[1] end),
+      }
+    )
+  ),
   -- Math Blackboard i.e. \mathbb
   s({
       trig = "([%a])mbb",
@@ -193,4 +207,6 @@ return {
     { condition = tex_utils.in_mathzone }
   ),
 
+  s({ trig = "lmod" }, { t("$L$-module ") }),
+  s({ trig = "lmods" }, { t("$L$-modules ") }),
 }

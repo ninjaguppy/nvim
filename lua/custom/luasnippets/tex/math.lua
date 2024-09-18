@@ -82,7 +82,7 @@ return {
   ),
   -- SUPERSCRIPT
   s({
-      trig = "([%w%)%]%}])'",
+      trig = '([%w%)%]%}])"',
       wordTrig = false,
       regTrig = true,
       snippetType = "autosnippet"
@@ -100,7 +100,7 @@ return {
   --------- SUBSCIPTS, SUPERSCRIPTS AND SIMILAR--------
   -- Subscript
   s({
-      trig = "([%w%)%]%}]);",
+      trig = "([%w%)%]%}]):",
       wordTrig = false,
       regTrig = true,
       snippetType = "autosnippet"
@@ -148,7 +148,7 @@ return {
   -- Superscript Shortcut
   -- Places the first alphanumeric character after the trigger into a superscript.
   s({
-      trig = '([%w%)%]%}])"([%w])',
+      trig = "([%w%)%]%}])'([%w])",
       regTrig = true,
       wordTrig = false,
       snippetType = "autosnippet"
@@ -166,7 +166,7 @@ return {
   -- Subscript Shortcut
   -- Places the first alphanumeric character after the trigger into a subscript.
   s({
-      trig = '([%w%)%]%}]):([%w])',
+      trig = '([%w%)%]%}]);([%w])',
       regTrig = true,
       wordTrig = false,
       snippetType = "autosnippet"
@@ -397,9 +397,23 @@ return {
     { condition = tex_utils.in_mathzone }
   ),
 
-  s({ trig = "xx", snippetType = "autosnippet" },
+  s({ trig = "xx", snippetType = "autosnippet", priority = 1000 },
     {
       t("\\times "),
+    },
+    { condition = tex_utils.in_mathzone }
+  ),
+
+  s({ trig = "opp", snippetType = "autosnippet" },
+    {
+      t("\\oplus "),
+    },
+    { condition = tex_utils.in_mathzone }
+  ),
+
+  s({ trig = "oxx", snippetType = "autosnippet" },
+    {
+      t("\\otimes "),
     },
     { condition = tex_utils.in_mathzone }
   ),
@@ -446,7 +460,28 @@ return {
     { condition = tex_utils.in_mathzone }
   ),
 
+  s({ trig = "!=", snippetType = "autosnippet" },
+    {
+      t("\\neq "),
+    },
+    { condition = tex_utils.in_mathzone }
+  ),
+
   ---- Modifiers + Similar
+  -- set
+  s({
+      trig = "set",
+      snippetType = "autosnippet",
+    },
+    fmta(
+      "\\{<>\\}<>",
+      {
+        i(1),
+        i(0)
+      }
+    ),
+    { condition = tex_utils.in_mathzone }
+  ),
 
 
   -- squared
@@ -512,7 +547,85 @@ return {
       snippetType = "autosnippet",
       priority = 1500
     },
-    { t("\\in") },
+    { t("\\in ") },
     { condition = tex_utils.in_mathzone }
-  )
+  ),
+  -- MATRICES
+  s({
+      trig = "bmat",
+      snippetType = "autosnippet",
+    },
+    fmta(
+      [[
+        \begin{bmatrix}
+            <>
+        \end{bmatrix}
+      ]],
+      {
+        i(0)
+      }
+    ),
+    { condition = tex_utils.in_mathzone }
+  ),
+
+  s({
+      trig = "pmat",
+      snippetType = "autosnippet",
+    },
+    fmta(
+      [[
+        \begin{pmatrix}
+            <>
+        \end{pmatrix}
+      ]],
+      {
+        i(0)
+      }
+    ),
+    { condition = tex_utils.in_mathzone }
+  ),
+
+  s({
+      trig = "2mat",
+    },
+    fmta(
+      "\\begin{bmatrix} <> & <> \\\\ <> & <> \\end{bmatrix}<>",
+      {
+        i(1),
+        i(2),
+        i(3),
+        i(4),
+        i(0),
+      }
+    ),
+    { condition = tex_utils.in_mathzone }
+  ),
+
+  s({
+      trig = "3mat",
+    },
+    fmta(
+      "\\begin{bmatrix} <> & <> & <> \\\\ <> & <> & <> \\\\ <> & <> & <> \\end{bmatrix}<>",
+      {
+        i(1),
+        i(2),
+        i(3),
+        i(4),
+        i(5),
+        i(6),
+        i(7),
+        i(8),
+        i(9),
+        i(0),
+      }
+    ),
+    { condition = tex_utils.in_mathzone }
+  ),
+  -- Whatever
+  s({ trig = "gll" },
+    {
+      t("\\mathfrak{gl}(V)"),
+    },
+    { condition = tex_utils.in_mathzone }
+  ),
 }
