@@ -65,9 +65,11 @@ return {
   s({ trig = "ali", snippetType = "autosnippet" },
     fmta(
       [[
+        $$
         \begin{align*}
             <>
         \end{align*}
+        $$
       ]],
       {
         i(1),
@@ -83,9 +85,9 @@ return {
     },
     fmta(
       [[
-      \[
+      $$
           <>
-      \]
+      $$
       ]],
       { i(0) }
     ),
