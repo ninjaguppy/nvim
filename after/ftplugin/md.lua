@@ -7,7 +7,7 @@ vim.opt.conceallevel = 2
 
 --plays nice with latex
 vim.g.vim_markdown_math = 1
-
+--vim.g.tex_conceal = ""
 
 -- This is pasted from ./tex.lua
 --vim.opt.formatoptions = 'tcqjpw'

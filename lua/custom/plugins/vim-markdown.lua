@@ -3,5 +3,6 @@ return {
   --  ft = { "markdown" },
   dependencies = {
     'godlygeek/tabular'
-  }
+  },
+  enabled = true
 }
