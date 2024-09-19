@@ -12,13 +12,69 @@ return {
           ["cmp.entry.get_documentation"] = true, -- requires hrsh7th/nvim-cmp
         },
       },
+      views = {
+        cmdline_popup = {
+          position = {
+            row = 12,
+            col = "50%",
+          },
+          size = {
+            width = 60,
+            height = "auto",
+          },
+        },
+        popupmenu = {
+          relative = "editor",
+          position = {
+            row = 8,
+            col = "50%",
+          },
+          size = {
+            width = 60,
+            height = 10,
+          },
+          border = {
+            style = "rounded",
+            padding = { 0, 1 },
+          },
+          win_options = {
+            winhighlight = { Normal = "Normal", FloatBorder = "DiagnosticInfo" },
+          },
+        },
+      },
       -- you can enable a preset for easier configuration
       presets = {
         bottom_search = true,         -- use a classic bottom cmdline for search
-        --        command_palette = true,       -- position the cmdline and popupmenu together
+        --        command_palette = true,         -- position the cmdline and popupmenu together
         long_message_to_split = true, -- long messages will be sent to a split
         inc_rename = false,           -- enables an input dialog for inc-rename.nvim
         lsp_doc_border = false,       -- add a border to hover docs and signature help
+      },
+      routes = {
+        {
+          view = "mini",
+          filter = {
+            event = "notify",
+            find = "Captured stderr output while running command 'rg' with args",
+          },
+          opts = { skip = true },
+        },
+        {
+          view = "mini",
+          filter = {
+            event = "notify",
+            find = "rg: error parsing glob",
+          },
+          opts = { skip = true },
+        },
+        {
+          view = "mini",
+          filter = {
+            event = "notify",
+            find = "Command 'rg' with args",
+          },
+          opts = { skip = true },
+        },
       },
     },
     dependencies = {
@@ -28,6 +84,6 @@ return {
       --   `nvim-notify` is only needed, if you want to use the notification view.
       --   If not available, we use `mini` as the fallback
       "rcarriga/nvim-notify",
-    }
+    },
   }
 }
