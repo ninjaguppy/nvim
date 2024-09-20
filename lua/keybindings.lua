@@ -6,6 +6,7 @@
 -- })
 -- Navigating files
 vim.keymap.set("n", "<leader>fs", [[<cmd>w<cr>]], { desc = "[F]ile [S]ave" })
+vim.keymap.set("n", "<leader>fo", [[<cmd>Oil<cr>]], { desc = "[O]il" })
 
 --Navigating Buffers
 vim.keymap.set("n", "<leader>bb", [[<cmd>Neotree toggle show buffers<cr>]], { desc = "View [B]uffers" })
