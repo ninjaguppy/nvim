@@ -27,6 +27,9 @@ return {
       {
         name = "stacks",
         path = "~/stacks",
+        override = {
+          notes_subdir = "02 seedbox",
+        }
       },
       {
         name = "the-forest",
@@ -38,6 +41,7 @@ return {
     -- levels defined by "vim.log.levels.*".
     log_level = vim.log.levels.INFO,
 
+    notes_subdir = "02 seedbox",
     --daily_notes = {
     -- Optional, if you keep daily notes in a separate directory.
     --folder = "dailies",
@@ -107,7 +111,7 @@ return {
           suffix = suffix .. string.char(math.random(65, 90))
         end
       end
-      return tostring(os.time()) .. "-" .. suffix
+      return tostring(os.date("%Y%m%d-%H%M")) .. "-" .. suffix
     end,
 
     -- Optional, customize how note file names are generated given the ID, target directory, and title.
@@ -146,7 +150,7 @@ return {
 
     -- Optional, boolean or a function that takes a filename and returns a boolean.
     -- `true` indicates that you don't want obsidian.nvim to manage frontmatter.
-    disable_frontmatter = true,
+    disable_frontmatter = false,
 
     -- Optional, alternatively you can customize the frontmatter data.
     ---@return table
@@ -220,7 +224,7 @@ return {
     -- 1. "current" (the default) - to always open in the current window
     -- 2. "vsplit" - to open in a vertical split if there's not already a vertical split
     -- 3. "hsplit" - to open in a horizontal split if there's not already a horizontal split
-    open_notes_in = "current",
+    open_notes_in = "vsplit",
 
     -- Optional, define your own callbacks to further customize behavior.
     callbacks = {
