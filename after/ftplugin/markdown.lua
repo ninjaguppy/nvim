@@ -8,6 +8,7 @@ vim.g.vim_markdown_folding_disabled = 1
 --plays nice with latex
 vim.g.vim_markdown_math = 1
 vim.opt.conceallevel = 1
+vim.g.vim_markdown_frontmatter = 1
 --vim.g.tex_conceal = 'abdgm'
 --let g:vim_markdown_folding_disabled = 1
 
