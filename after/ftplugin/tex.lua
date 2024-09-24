@@ -17,3 +17,10 @@ ls.setup({
 	store_selection_keys = "<Tab>",
 })
 --require("luasnip.loaders.from_lua").load({ paths = "~/.config/nvim/lua/custom/luasnippets/" }
+-- Sets tab things
+local o = vim.o
+
+o.expandtab = true   -- expand tab input with spaces characters
+o.smartindent = true -- syntax aware indentations for newline inserts
+o.tabstop = 2        -- num of space characters per tab
+o.shiftwidth = 2     -- spaces per indentation level
