@@ -181,6 +181,22 @@ return {
     { condition = tex_utils.in_mathzone }
   ),
 
+  -- Auto subscript for numbers
+  s({
+      trig = '([%w%)%]%}])([%d])',
+      regTrig = true,
+      wordTrig = false,
+      snippetType = "autosnippet"
+    },
+    fmta(
+      "<>_<> ",
+      {
+        f(function(_, snip) return snip.captures[1] end),
+        f(function(_, snip) return snip.captures[2] end),
+      }
+    ),
+    { condition = tex_utils.in_mathzone }
+  ),
   -- Zero Subscript Shortcut
   s({
       trig = '([%a%)%]%}])00',
@@ -254,7 +270,8 @@ return {
       trig = '([%a%)%]%}])mm',
       wordTrig = false,
       regTrig = true,
-      snippetType = "autosnippet"
+      snippetType = "autosnippet",
+      priority = 1000
     },
     fmta(
       "<>_{<>}",
@@ -354,6 +371,14 @@ return {
   s({ trig = "||", snippetType = "autosnippet" },
     {
       t("\\mid"),
+    },
+    { condition = tex_utils.in_mathzone }
+  ),
+
+  -- ali equals
+  s({ trig = "==", snippetType = "autosnippet" },
+    {
+      t("&="),
     },
     { condition = tex_utils.in_mathzone }
   ),
