@@ -12,5 +12,15 @@ return {
     --vim.g.tex_conceal = 'abdmg'
     -- hi Conceal ctermbg=none
     --end,
+  },
+  {
+    'micangl/cmp-vimtex',
+    config = function()
+      require('cmp').setup({
+        sources = {
+          { name = 'vimtex', },
+        },
+      })
+    end
   }
 }

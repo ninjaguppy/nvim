@@ -694,6 +694,7 @@ require('lazy').setup({
       'hrsh7th/cmp-nvim-lsp',
       'hrsh7th/cmp-path',
       --'jalvesaq/cmp-zotcite'
+      --'micangl/cmp-vimtex',
       'jc-doyle/cmp-pandoc-references'
     },
     config = function()
@@ -767,6 +768,7 @@ require('lazy').setup({
           { name = 'luasnip' },
           { name = 'path' },
           { name = 'pandoc_references' },
+          { name = 'buffer' },
         },
       }
     end,
