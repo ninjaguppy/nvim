@@ -97,6 +97,22 @@ return {
     { condition = tex_utils.in_mathzone }
   ),
 
+  --------- SET OPERATIONS -------
+  --- Union
+  s({ trig = "UU", snippetType = "autosnippet" },
+    {
+      t("\\cup"),
+    },
+    { condition = tex_utils.in_mathzone }
+  ),
+
+  -- Intersection
+  s({ trig = "Nn", snippetType = "autosnippet" },
+    {
+      t("\\cap"),
+    },
+    { condition = tex_utils.in_mathzone }
+  ),
   --------- SUBSCIPTS, SUPERSCRIPTS AND SIMILAR--------
   -- Subscript
   s({
@@ -186,7 +202,7 @@ return {
       trig = '([%w%)%]%}])([%d])',
       regTrig = true,
       wordTrig = false,
-      snippetType = "autosnippet"
+      --snippetType = "autosnippet"
     },
     fmta(
       "<>_<> ",
@@ -651,6 +667,16 @@ return {
     {
       t("\\mathfrak{gl}(V)"),
     },
+    { condition = tex_utils.in_mathzone }
+  ),
+  s({ trig = "ip" },
+    fmta(
+      "\\langle <> , <> \\rangle",
+      {
+        i(1),
+        i(2),
+      }
+    ),
     { condition = tex_utils.in_mathzone }
   ),
 }
