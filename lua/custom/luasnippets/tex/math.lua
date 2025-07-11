@@ -119,7 +119,6 @@ return {
       trig = "([%w%)%]%}]):",
       wordTrig = false,
       regTrig = true,
-      snippetType = "autosnippet"
       --snippetType = "autosnippet"
     },
     fmta(
