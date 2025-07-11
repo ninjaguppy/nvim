@@ -120,6 +120,7 @@ return {
       wordTrig = false,
       regTrig = true,
       snippetType = "autosnippet"
+      --snippetType = "autosnippet"
     },
     fmta(
       "<>_{<>}",

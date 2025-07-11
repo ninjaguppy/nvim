@@ -13,6 +13,7 @@ vim.keymap.set("n", "<leader>bb", [[<cmd>Neotree toggle show buffers<cr>]], { de
 vim.keymap.set("n", "<leader>`", [[<cmd>b#<cr>]], { desc = "Switch to previous buffer" })
 vim.keymap.set("n", "<leader>bk", [[<cmd>bp<bar>sp<bar>bn<bar>bd<cr>]], { desc = "[K]ill buffer and window" })
 
+
 -- Navigating the Windows
 vim.keymap.set("n", "<leader>wv", [[<C-w>v]], { desc = "Split [V]ertically" })
 vim.keymap.set("n", "<leader>ws", [[<C-w>s]], { desc = "[S]plit Horizontally" })
