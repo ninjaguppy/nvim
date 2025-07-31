@@ -2,8 +2,7 @@ return {
   {
     'lervag/vimtex',
     --    ft = { 'markdown', 'tex' }
-    --    opts = {
-    --    }
+    lazy = false
   },
   {
     --'KeitaNakamura/tex-conceal.vim',

@@ -15,6 +15,11 @@ vim.keymap.set("n", "<leader>bk", [[<cmd>bp<bar>sp<bar>bn<bar>bd<cr>]], { desc =
 
 -- Vimtex Commands
 
+-- Paper Searching
+local papers = require("custom.papers")
+
+vim.keymap.set("n", "<leader>pp", papers.search_papers, { desc = "Search papers" })
+
 -- Navigating the Windows
 vim.keymap.set("n", "<leader>wv", [[<C-w>v]], { desc = "Split [V]ertically" })
 vim.keymap.set("n", "<leader>ws", [[<C-w>s]], { desc = "[S]plit Horizontally" })
