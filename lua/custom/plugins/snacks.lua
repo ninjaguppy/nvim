@@ -26,6 +26,12 @@ return {
       enabled = true,
       backend = "fzf",
     },
+    image = {
+      enabled = true,
+      formats = {
+        "png", "pdf", "jpg"
+      }
+    },
     notifier = { enabled = true },
     quickfile = { enabled = true },
     scope = { enabled = true },
