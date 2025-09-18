@@ -805,6 +805,7 @@ smap <silent><expr> <Tab> luasnip#jumpable(1) ? '<Plug>luasnip-jump-next' : '<Ta
 require("keybindings")
 require("options")
 require("colemak")
+require("mathconfig")
 
 
 local ls = require("luasnip")
