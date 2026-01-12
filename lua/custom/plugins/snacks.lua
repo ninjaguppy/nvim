@@ -27,7 +27,7 @@ return {
       backend = "fzf",
     },
     image = {
-      enabled = true,
+      enabled = false,
       formats = {
         "png", "pdf", "jpg"
       }

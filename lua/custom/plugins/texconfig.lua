@@ -13,6 +13,31 @@ return {
     --end,
   },
   {
+    "krissen/snacks-bibtex.nvim",
+    dependencies = { "folke/snacks.nvim" },
+    opts = {
+
+      -- optional overrides (see below)
+      global_files = { "~/math/main.bib" },
+      format = "\\cite{%s}",
+      display = {
+        preview_fields = { "author", "year", "title" },
+        preview_fields_separator = " • ", -- customize the separator between fields
+      }
+    },
+    keys = {
+      {
+        "<leader>lc",
+        function()
+          require("snacks-bibtex").bibtex()
+        end,
+        desc = "BibTeX citations (Snacks)",
+      },
+    },
+  },
+
+
+  {
     'micangl/cmp-vimtex',
     config = function()
       require('cmp').setup({
